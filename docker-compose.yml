@@ -1,0 +1,18 @@
+version: "3"
+services:
+  tg-bot-db:
+    container_name: pgdb
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=tg_finance_bot
+  tg-bot:
+    build: .
+    container_name: tg_money_bot
+    ports:
+      - "8080:8080"
+    depends_on:
+      - tg-bot-db
